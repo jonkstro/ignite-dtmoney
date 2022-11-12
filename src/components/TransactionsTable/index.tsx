@@ -1,6 +1,12 @@
+import { useTransactions } from "../../hooks/useTransactions";
 import { Container } from "./styles";
 
+
+
 export function TransactionsTable() {
+
+    const { transactions } = useTransactions();
+
     return (
         <Container>
             <table>
@@ -14,30 +20,27 @@ export function TransactionsTable() {
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Desenvolvimento de site</td>
-                        <td className="withdraw">- R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2022</td>
-                    </tr>
-                    <tr>
-                        <td>Desenvolvimento de site</td>
-                        <td className="withdraw">- R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2022</td>
-                    </tr>
-                    <tr>
-                        <td>Desenvolvimento de site</td>
-                        <td className="deposit">R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2022</td>
-                    </tr>
-                    <tr>
-                        <td>Desenvolvimento de site</td>
-                        <td className="deposit">R$ 12.000</td>
-                        <td>Desenvolvimento</td>
-                        <td>20/02/2022</td>
-                    </tr>
+                    {transactions.map(transaction=>(
+                        <tr key={transaction.id}>
+                            <td>{transaction.title}</td>
+                            <td className={transaction.type}>
+                                {/* adicionar um hífen, caso transação seja withdraw */}
+                                {transaction.type ==='withdraw' ? '-' : ''}
+                                {/* REALIZAR A FORMATAÇÃO DO TIPO DE MOEDA DO BRASIL */}
+                                {new Intl.NumberFormat('pt-BR', {
+                                    style: 'currency',
+                                    currency: 'BRL'
+                                }).format(transaction.amount)}
+                            </td>
+                            <td>{transaction.category}</td>
+                            <td>
+                                {/* REALIZAR A FORMATAÇÃO DO TIPO DE DATA DO BRASIL */}
+                                {new Intl.DateTimeFormat('pt-BR').format(
+                                    new Date(transaction.createdAt)
+                                )}
+                            </td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </Container>
