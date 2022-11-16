@@ -23,9 +23,9 @@ export function TransactionsTable() {
                     {transactions.map(transaction=>(
                         <tr key={transaction.id}>
                             <td>{transaction.title}</td>
-                            <td className={transaction.type}>
+                            <td className={transaction.type_transaction}>
                                 {/* adicionar um hífen, caso transação seja withdraw */}
-                                {transaction.type ==='withdraw' ? '-' : ''}
+                                {transaction.type_transaction ==='withdraw' ? '-' : ''}
                                 {/* REALIZAR A FORMATAÇÃO DO TIPO DE MOEDA DO BRASIL */}
                                 {new Intl.NumberFormat('pt-BR', {
                                     style: 'currency',

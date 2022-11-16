@@ -1,5 +1,4 @@
-import { FormEvent, useContext, useEffect, useState } from 'react';
-import { api } from '../../services/api';
+import { FormEvent, useEffect, useState } from 'react';
 import { useTransactions } from '../../hooks/useTransactions';
 
 import Modal from 'react-modal'; 
@@ -34,24 +33,20 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
     const [category, setCategory] = useState('');
 
     // variavel pra armazenar o tipo de transação: deposit ou withdraw
-    const [type, setType] = useState('deposit');
+    const [type_transaction, setType] = useState('deposit');
 
     async function handleCreateNewTransaction(event: FormEvent) {
-        event.preventDefault();
+        // event.preventDefault();
         await createTransaction({
             title,
             amount,
             category,
-            type,
+            type_transaction,
         });
 
         // Apagar todos os campos quando fechar o modal
-        alert('Cadastrado com sucesso');
+        // alert('Cadastrado com sucesso');
         onRequestClose();
-        setTitle('');
-        setAmount(0);
-        setCategory('');
-        setType('deposit');
 
     }
 
@@ -90,7 +85,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                     <RadioBox
                         type='button'
                         onClick={()=> {setType('deposit');}}
-                        isActive={type === 'deposit'}
+                        isActive={type_transaction === 'deposit'}
                         activeColor='green'
                     >
                         <img src={incomeImg} alt="imagem de entrada" />
@@ -100,7 +95,7 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
                     <RadioBox
                         type='button'
                         onClick={()=> {setType('withdraw');}}
-                        isActive={type === 'withdraw'}
+                        isActive={type_transaction === 'withdraw'}
                         activeColor='red'
                     >
                         <img src={outcomeImg} alt="imagem de saida" />

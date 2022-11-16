@@ -2,21 +2,21 @@ import { createContext, ReactNode, useContext, useEffect, useState } from "react
 import { api } from "../services/api";
 
 
-// criar interface para o objeto Transaction no metodo GET
+// criar interface para o objeto Transaction no metodo GET (recebe todos dados)
 interface Transaction {
     id: number;
     title: string;
     amount: number;
-    type: string;
+    type_transaction: string;
     category: string;
     createdAt: string;
 }
 
-// criar interface para o objeto Transaction no metodo POST 
+// criar interface para o objeto Transaction no metodo POST (enviar só os dados necessários)
 interface TransactionInput {
     title: string;
     amount: number;
-    type: string;
+    type_transaction: string;
     category: string;
 }
 
@@ -43,16 +43,16 @@ export function TransactionsProvider({children}: TransactionsProviderProps) {
     // realizar a busca da api ao carregar a página, por isso o array vazio
     // as transactions carregadas da api será salvo no usestate
     useEffect(()=> {
-        api.get('transactions')
-            .then(response=> setTransactions(response.data.transactions))
+        api.get('/transactions/')
+            .then(response=> setTransactions(response.data))
     }, []);
 
     async function createTransaction(transactionInput: TransactionInput) {
         
         // salvar os objetos enviados na api
-        const response = await api.post('/transactions', {
-            ...transactionInput,
-            createdAt: new Date(),
+        const response = await api.post('/transactions/', {
+            ...transactionInput
+            // createdAt: new Date(),
         });
         const { transaction } = response.data;
 

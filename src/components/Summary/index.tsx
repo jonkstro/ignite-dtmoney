@@ -2,7 +2,6 @@ import { Container } from "./styles";
 import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
 import totalImg from '../../assets/total.svg';
-import { useContext } from "react";
 import { useTransactions } from "../../hooks/useTransactions";
 
 
@@ -13,7 +12,7 @@ export function Summary() {
     // variável que irá fazer as somas dos valores da api
     const totalDeposits = transactions.reduce((acc, transaction)=> {
         // somar todas transações do tipo deposito e acumular
-        if (transaction.type === 'deposit') {
+        if (transaction.type_transaction === 'deposit') {
             return acc + transaction.amount;
         }
 
@@ -24,7 +23,7 @@ export function Summary() {
     // variável que irá fazer as somas dos valores da api
     const totalWithdraw = transactions.reduce((acc, transaction)=> {
         // somar todas transações do tipo withdraw e acumular
-        if (transaction.type === 'withdraw') {
+        if (transaction.type_transaction === 'withdraw') {
             return acc + transaction.amount;
         }
 
@@ -58,7 +57,9 @@ export function Summary() {
                     }).format(totalWithdraw)}
                 </strong>
             </div>
-            <div className="highlight-background">
+            <div className={
+                totalDeposits - totalWithdraw >= 0 ? 'highlight-background-green': 'highlight-background-red'
+            }>
                 <header>
                     <p>Total</p>
                     <img src={totalImg} alt="total logo" />
