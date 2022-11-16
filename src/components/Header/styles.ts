@@ -12,7 +12,10 @@ export const Content = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    @media (max-width: 600px) {
+        text-align: center;
+        display: block;
+    }
     button {
         font-size: 1rem;
 
@@ -27,6 +30,10 @@ export const Content = styled.div`
         &:hover {
             filter: brightness(0.9);
             transform: scale(1.1);
+        }
+        @media (max-width: 600px) {
+            margin-top: 3rem;
+            width: 100%;
         }
     }
 `;
