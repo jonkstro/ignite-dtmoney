@@ -21,6 +21,7 @@ export const Container = styled.div`
             background: var(--shape);
             color: var(--text-body);
             border-radius: 0.25rem;
+            /* text-align: center; */
 
             /* Somente no primeiro td, nos demais continua normal */
             &:first-child {
@@ -33,6 +34,17 @@ export const Container = styled.div`
 
             &.withdraw {
                 color: var(--red);
+            }
+
+            button {
+                margin-left: 0px;
+                padding: 0px;
+                height: 2rem;
+                background: var(--red);
+                color: #FFF;
+                border: none;
+                width: 100%;
+                border-radius: 0.5rem;
             }
             
         }

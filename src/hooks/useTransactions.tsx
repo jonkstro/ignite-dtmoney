@@ -28,6 +28,7 @@ interface TransactionsProviderProps {
 interface TransactionsContextData {
     transactions: Transaction[];
     createTransaction: (transaction: TransactionInput) => Promise<void>;
+    deleteTransaction: (transactionId: number) => void;
 }
 
 const TransactionsContext = createContext<TransactionsContextData>(
@@ -63,8 +64,16 @@ export function TransactionsProvider({children}: TransactionsProviderProps) {
         ]);
     }
 
+    // criar função de delete
+    async function deleteTransaction(transactionId : number) {
+        await api.delete('/transactions/'+transactionId);
+
+        // recarregar a página
+        window.location.reload();
+    }
+
     return (
-        <TransactionsContext.Provider value={{transactions, createTransaction}}>
+        <TransactionsContext.Provider value={{transactions, createTransaction, deleteTransaction}}>
             {children}
         </TransactionsContext.Provider>
     );
@@ -76,3 +85,20 @@ export function useTransactions() {
 
     return context;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+// componentDidMount() {
+//     // Simple DELETE request with axios
+//     axios.delete('https://reqres.in/api/posts/1')
+//         .then(() => this.setState({ status: 'Delete successful' }));
+// }
