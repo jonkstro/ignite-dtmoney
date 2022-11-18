@@ -1,16 +1,28 @@
 import { useTransactions } from "../../hooks/useTransactions";
 import { Container } from "./styles";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 export function TransactionsTable() {
 
     const { transactions, deleteTransaction } = useTransactions();
 
-    // variaveis que irão armazenar os valores que vão ser inseridos no form
+    const notify = ()=> toast.error('Deletado !', {
+        position: toast.POSITION.TOP_CENTER
+    });
+    
+    // função sleep pra esperar sumir o notify e só então excluir
+    const sleep = (ms:number) => new Promise(
+      resolve => setTimeout(resolve, ms)
+    );
 
-    function handleDeleteTransaction(transactionId: number) {
-        alert('Excluída a transação de id:' + transactionId);
-        deleteTransaction(transactionId);
+    // função async pra esperar 1 segundo
+    async function handleDeleteTransaction(transactionId: number) {
+        notify(); //realizar o notify de exclusão
+        await sleep(1000); //esperar o notify sumir
+        deleteTransaction(transactionId); //deletar a transação no useTransactions
     }
 
     return (

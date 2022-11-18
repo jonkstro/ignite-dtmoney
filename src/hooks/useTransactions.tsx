@@ -68,7 +68,7 @@ export function TransactionsProvider({children}: TransactionsProviderProps) {
     async function deleteTransaction(transactionId : number) {
         await api.delete('/transactions/'+transactionId);
 
-        // recarregar a página
+        // recarregar a página pra refazer o get
         window.location.reload();
     }
 

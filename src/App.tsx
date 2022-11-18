@@ -6,7 +6,7 @@ import { GlobalStyle } from "./styles/global"
 import { useState } from "react";
 import { NewTransactionModal } from "./components/NewTransactionModal";
 import { TransactionsProvider } from "./hooks/useTransactions";
-
+import { ToastContainer } from 'react-toastify';
 
 Modal.setAppElement('#root'); //div root não estará visível por acessibilidade
 
@@ -32,6 +32,7 @@ export function App() {
         isOpen={isNewTransactionModalOpen}
         onRequestClose={handleCloseNewTransactionModal}
       />
+      <ToastContainer  autoClose={1000} />
       <GlobalStyle />
     </TransactionsProvider>
   );

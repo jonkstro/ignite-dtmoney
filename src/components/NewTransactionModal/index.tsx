@@ -6,6 +6,9 @@ import closeImg from '../../assets/close.svg';
 import incomeImg from '../../assets/income.svg';
 import outcomeImg from '../../assets/outcome.svg';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Container, RadioBox, TransactionTypeContainer } from './styles';
 
 
@@ -35,6 +38,10 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
     // variavel pra armazenar o tipo de transação: deposit ou withdraw
     const [type_transaction, setType] = useState('deposit');
 
+    const notify = () => toast.success('Cadastrado com sucesso !', {
+    position: toast.POSITION.TOP_RIGHT
+    });
+
     async function handleCreateNewTransaction(event: FormEvent) {
         // event.preventDefault();
         await createTransaction({
@@ -43,11 +50,11 @@ export function NewTransactionModal({ isOpen, onRequestClose }: NewTransactionMo
             category,
             type_transaction,
         });
-
+        notify();
         // Apagar todos os campos quando fechar o modal
         // alert('Cadastrado com sucesso');
         onRequestClose();
-
+        
     }
 
     return (
